@@ -1,5 +1,7 @@
 <%=Diary.view_entry(params[:id])%>
-
+<%Diary.show_comments(params[:id]).each do |comment| %>
+  <%=comment.comment%>
+  <% end %>
 <form action='/diary'>
   <input type='submit' value='Home'>
 </form>

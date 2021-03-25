@@ -70,3 +70,17 @@ feature 'Update an entry' do
     expect(page).to have_text 'delivered 2 healthy lambs'
   end
 end
+
+feature 'Add a comment' do
+  before do
+    add_entries
+    visit '/'
+  end
+  scenario "User comments on first entry" do
+    first('.entry').click_button('Comment')
+    fill_in('comment', :with => 'They are so cute!')
+    click_on('Add')
+    click_on('Lambs!')
+    expect(page).to have_text 'They are so cute!'
+  end
+end

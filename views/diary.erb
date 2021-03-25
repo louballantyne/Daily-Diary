@@ -12,6 +12,9 @@
       <form action ='/diary/<%= entry.id %>/edit' method='get'>
       <input type= 'hidden' name='_method' value= 'PUT'>
       <input type='submit' value="Update" ></form>
+      <form action ='/diary/<%= entry.id %>/comment' method='get'>
+      <input type= 'hidden' name='_method' value= 'PUT'>
+      <input type='submit' value="Comment" ></form>
     </li>
   <% end %>
 </ul>

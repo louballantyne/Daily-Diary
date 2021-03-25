@@ -1,4 +1,5 @@
 require 'pg'
+require_relative 'comments'
 
 class Diary
   attr_accessor :entry, :id, :date, :title
@@ -54,5 +55,21 @@ class Diary
   def self.update(id, date, title, entry)
     conn = PG.connect(dbname: @dbname)
     result = conn.exec("UPDATE entries SET title='#{title}', date='#{date}', entry='#{entry}' WHERE id = '#{id}';")
+  end
+
+  def self.comment(entry_id, comment)
+    conn = PG.connect( dbname: @dbname )
+    conn.exec( "INSERT INTO comments (entry_id, comment) VALUES ('#{entry_id}', '#{comment}')")
+  end
+
+  def self.show_comments(entry_id)
+    @comment_class = Comment
+    @comments = []
+    Diary.check_env
+    conn = PG.connect( dbname: @dbname )
+    conn.exec( "SELECT comment FROM comments LEFT JOIN entries ON comments.entry_id = entries.id WHERE entries.id = #{entry_id}").map do |comment|
+      @comments << @comment_class.new(comment['id'], comment['comment'])
+    end
+    return @comments
   end
 end
