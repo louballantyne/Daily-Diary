@@ -1,0 +1,19 @@
+
+<h1> Your Diary Entries: </h1>
+
+<ul>
+  <% Diary.all.each do |entry| %>
+    <li class="entry">
+        <%= entry.date %><br>
+        <%= entry.entry %><p>
+
+      <form action ='/diary/<%= entry.id %>' method='post'>
+      <input type= 'hidden' name='_method' value= 'DELETE'>
+      <input type='submit' value="Delete" ></form>
+    </li>
+  <% end %>
+</ul>
+<br>
+<form action='/new_entry' method='get'>
+  <input type='submit' value='New Entry' name='new_entry'>
+</form>
