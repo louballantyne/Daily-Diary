@@ -40,6 +40,7 @@ feature 'Add an entry' do
     click_on('new_entry')
     fill_in('date', :with => '2021-03-24')
     fill_in('entry', :with => 'I baked a cake today')
+    fill_in('title', :with => 'Baking!')
     click_on('Add')
     expect(page).to have_text('I baked a cake today')
   end

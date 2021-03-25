@@ -5,6 +5,7 @@
   <% Diary.all.each do |entry| %>
     <li class="entry">
         <%= entry.date %><br>
+        <%= entry.title%><br>
         <%= entry.entry %><p>
 
       <form action ='/diary/<%= entry.id %>' method='post'>
