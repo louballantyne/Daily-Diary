@@ -22,6 +22,7 @@ class Diary
     @id = id
     @date = date
     @entry = entry
+    @title = title
   end
 
   def self.delete(id)
@@ -36,5 +37,11 @@ class Diary
     conn = PG.connect( dbname: @dbname )
     conn.exec( "INSERT INTO entries (date, title, entry) VALUES ('#{date}', '#{title}', '#{entry}')")
     conn.close if conn
+  end
+
+  def self.view_entry(id)
+    @diary_entries.each do |entry|
+      return entry.entry if entry.id == id
+    end
   end
 end

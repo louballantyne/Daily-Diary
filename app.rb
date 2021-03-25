@@ -28,6 +28,10 @@ class DiaryManager < Sinatra::Base
     redirect '/diary'
   end
 
+  get '/diary/:id' do
+    erb(:entry)
+  end
+
   run! if app_file == $0
 
 end

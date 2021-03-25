@@ -4,10 +4,8 @@
 <ul>
   <% Diary.all.each do |entry| %>
     <li class="entry">
-        <%= entry.date %><br>
-        <%= entry.title%><br>
-        <%= entry.entry %><p>
-
+        <%=entry.date%><br>
+        <a href="/diary/<%=entry.id%>"> <%=entry.title%> </a><br>
       <form action ='/diary/<%= entry.id %>' method='post'>
       <input type= 'hidden' name='_method' value= 'DELETE'>
       <input type='submit' value="Delete" ></form>

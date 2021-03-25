@@ -18,7 +18,7 @@ feature 'View entries' do
   end
   scenario 'User views diary entries' do
     expect(page).to have_text '2021-03-25'
-    expect(page).to have_text 'Becky had lambs'
+    expect(page).to have_text "Lambs"
   end
 end
 
@@ -42,6 +42,17 @@ feature 'Add an entry' do
     fill_in('entry', :with => 'I baked a cake today')
     fill_in('title', :with => 'Baking!')
     click_on('Add')
-    expect(page).to have_text('I baked a cake today')
+    expect(page).to have_text('Baking!')
+  end
+end
+
+feature 'View an entry' do
+  before do
+    add_entries
+    visit '/'
+  end
+  scenario "Users clicks on the title of the entry they wish to view, then views the entry" do
+    click_on('Lambs!')
+    expect(page).to have_text('Becky')
   end
 end
