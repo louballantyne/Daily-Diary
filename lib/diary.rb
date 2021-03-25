@@ -44,4 +44,15 @@ class Diary
       return entry.entry if entry.id == id
     end
   end
+
+  def self.find(id)
+    @diary_entries.each do |entry|
+      return entry if entry.id == id
+    end
+  end
+
+  def self.update(id, date, title, entry)
+    conn = PG.connect(dbname: @dbname)
+    result = conn.exec("UPDATE entries SET title='#{title}', date='#{date}', entry='#{entry}' WHERE id = '#{id}';")
+  end
 end

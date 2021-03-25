@@ -56,3 +56,17 @@ feature 'View an entry' do
     expect(page).to have_text('Becky')
   end
 end
+
+feature 'Update an entry' do
+  before do
+    add_entries
+    visit '/'
+  end
+  scenario "User clicks update for the first entry and changes the number of lambs Becky delivered from 3 to 2" do
+    first('.entry').click_button('Update')
+    fill_in('entry', :with => 'Becky had lambs. She delivered 2 healthy lambs even though we did not know she was pregnant.')
+    click_on('Update')
+    click_on('Lambs!')
+    expect(page).to have_text 'delivered 2 healthy lambs'
+  end
+end

@@ -32,6 +32,16 @@ class DiaryManager < Sinatra::Base
     erb(:entry)
   end
 
+  get '/diary/:id/edit' do
+    @id = params[:id]
+    erb(:edit_entry)
+  end
+
+  put '/diary/:id' do
+    Diary.update(params[:id],params[:date],params[:title],params[:entry])
+    redirect '/diary'
+  end
+
   run! if app_file == $0
 
 end

@@ -1,0 +1,15 @@
+
+<form action='/diary/<%=@id%>' method='post'>
+  <input type="hidden" name="_method" value="PUT">
+  <label for="title">Title:</label>
+  <input type='text' name='title' value='<%=Diary.find(@id).title%>' required>
+  <label for="date">Date:</label>
+  <input type='text' name='date' value='<%=Diary.find(@id).date%>' required>
+  <label for="entry">URL:</label>
+  <input type='text' name='entry' value='<%=Diary.find(@id).entry%>' required>
+  <input type='submit' value='Update' name="update">
+</form>
+<br>
+<form action='/diary'>
+  <input type='submit' value='Cancel'>
+</form>
