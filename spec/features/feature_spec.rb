@@ -84,3 +84,24 @@ feature 'Add a comment' do
     expect(page).to have_text 'They are so cute!'
   end
 end
+
+feature 'Add a tag' do
+  before do
+    add_entries
+    visit '/'
+  end
+  scenario "User tags an entry with #animals" do
+    first('.entry').click_button('Tag')
+    fill_in('tag', :with => '#animals')
+    click_on('Add')
+    expect(page).to have_text '#animals'
+  end
+  scenario 'User retrieves a list of entries with the tag #animals' do
+    first('.entry').click_button('Tag')
+    fill_in('tag', :with => '#animals')
+    click_on('Add')
+    fill_in('search_tag', :with => '#animals')
+    click_on('search_by_tag')
+    expect(page).to have_text 'Becky'
+  end
+end

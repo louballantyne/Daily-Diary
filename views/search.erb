@@ -1,0 +1,7 @@
+<%Diary.tagged_entries(@tag).each do |entry| %>
+<%=entry['date']%> <br> <a href="/diary/<%=entry['id']%>"><%=entry['title']%></a><p>
+<% end %><br>
+
+<form action='/diary'>
+  <input type='submit' value='Home'>
+</form>

@@ -1,5 +1,6 @@
 require 'pg'
 require_relative 'comments'
+require_relative 'tags'
 
 class Diary
   attr_accessor :entry, :id, :date, :title
@@ -71,5 +72,31 @@ class Diary
       @comments << @comment_class.new(comment['id'], comment['comment'])
     end
     return @comments
+  end
+
+  def self.tag(entry_id, tag)
+    conn = PG.connect( dbname: @dbname )
+    conn.exec( "INSERT INTO tags (entry_id, tag) VALUES ('#{entry_id}', '#{tag}')")
+  end
+
+  def self.show_tags(entry_id)
+    @tag_class = Tags
+    @tags = []
+    Diary.check_env
+    conn = PG.connect( dbname: @dbname )
+    conn.exec( "SELECT tag FROM tags WHERE entry_id = '#{entry_id}'").map do |tag|
+      @tags << @tag_class.new(tag['tag'], tag['entry_id'], tag['id'])
+    end
+    return @tags
+  end
+
+  def self.tagged_entries(tag)
+    @tagged_entries = []
+    Diary.check_env
+    conn = PG.connect( dbname: @dbname )
+    conn.exec( "SELECT entry, title, date, entries.id FROM entries INNER JOIN tags ON entries.id = tags.entry_id WHERE tags.tag = '#{tag}'").map do |entry|
+      @tagged_entries << entry
+    end
+    return @tagged_entries
   end
 end

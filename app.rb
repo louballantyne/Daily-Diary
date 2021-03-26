@@ -51,7 +51,21 @@ class DiaryManager < Sinatra::Base
     Diary.comment(params[:id], params[:comment])
     redirect '/diary'
   end
+# Add a tag to a diary entry
+  get '/diary/:id/tag' do
+    @id = params[:id]
+    erb(:tag)
+  end
+  # send data to add a tag
+    post '/diary/:id/add_tag' do
+      Diary.tag(params[:id], params[:tag])
+      redirect '/diary'
+    end
+  # search for entries by tag
+  post '/search' do
+    @tag = params[:search_tag]
+    erb(:search)
+  end
 
   run! if app_file == $0
-
 end
